@@ -7,10 +7,7 @@ import com.driver.model.Passenger;
 import io.swagger.models.auth.In;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class AirportRepository {
@@ -40,6 +37,9 @@ public class AirportRepository {
         if (passengers.contains(passengerId)) {
             return "FAILURE";
         } else {
+            if(passengers == null){
+                passengers = new ArrayList<>();
+            }
             passengers.add(passengerId);
             flightPassengerDb.put(flightId, passengers);
             return "SUCCESS";
@@ -78,17 +78,25 @@ public class AirportRepository {
 
     public int getNumberOfPeopleOn(Date date, String airportName) {
         int count = 0;
-        for (int flightId : flightPassengerDb.keySet()) {
-            if (flightDb.get(flightId).getFlightDate() == date && (flightDb.get(flightId).getFromCity() == airportDb.get(airportName).getCity()
-                    || flightDb.get(flightId).getToCity() == airportDb.get(airportName).getCity())) {
-                count += flightPassengerDb.get(flightId).size();
+        if(airportDb.containsKey(airportName)) {
+            for (int flightId : flightPassengerDb.keySet()) {
+                if (flightDb.get(flightId).getFlightDate() == date && (flightDb.get(flightId).getFromCity() == airportDb.get(airportName).getCity()
+                        || flightDb.get(flightId).getToCity() == airportDb.get(airportName).getCity())) {
+                    count += flightPassengerDb.get(flightId).size();
+                }
             }
         }
         return count;
     }
 
     public int calculateFlightFare(Integer flightId) {
-        int ans = 3000 + (flightPassengerDb.get(flightId).size() * 50);
+        int ans = 0;
+        if(flightPassengerDb.containsKey(flightId)) {
+            ans = 3000 + (flightPassengerDb.get(flightId).size() * 50);
+        }
+        else{
+            ans = 3000;
+        }
         return ans;
     }
 
@@ -115,10 +123,12 @@ public class AirportRepository {
 
     public String getAirportNameFromFlightId(Integer flightId){
         String ans = null;
-        City city = flightDb.get(flightId).getFromCity();
-        for(Map.Entry<String, Airport> entry : airportDb.entrySet()){
-            if(entry.getValue().getCity() == city){
-                ans = entry.getKey();
+        if(flightDb.containsKey(flightId)) {
+            City city = flightDb.get(flightId).getFromCity();
+            for (Map.Entry<String, Airport> entry : airportDb.entrySet()) {
+                if (entry.getValue().getCity() == city) {
+                    ans = entry.getKey();
+                }
             }
         }
         return ans;
