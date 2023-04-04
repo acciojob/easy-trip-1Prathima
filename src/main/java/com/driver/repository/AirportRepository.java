@@ -59,12 +59,19 @@ public class AirportRepository {
     public int getNumberOfPeopleOn(Date date, String airportName) {
         int count = 0;
         if(airportDb.containsKey(airportName)) {
-            for (int flightId : flightPassengerDb.keySet()) {
-                if (flightDb.get(flightId).getFlightDate() == date && (flightDb.get(flightId).getFromCity() == airportDb.get(airportName).getCity()
-                        || flightDb.get(flightId).getToCity() == airportDb.get(airportName).getCity())) {
-                    count += flightPassengerDb.get(flightId).size();
+            for (Flight flight : flightDb.values()) {
+                if (flight.getFlightDate() == date && (flight.getFromCity() == airportDb.get(airportName).getCity()
+                        || flight.getToCity() == airportDb.get(airportName).getCity())) {
+                    count += flightPassengerDb.get(flight.getFlightId()).size();
                 }
             }
+
+//            for (int flightId : flightPassengerDb.keySet()) {
+//                if (flightDb.get(flightId).getFlightDate() == date && (flightDb.get(flightId).getFromCity() == airportDb.get(airportName).getCity()
+//                        || flightDb.get(flightId).getToCity() == airportDb.get(airportName).getCity())) {
+//                    count += flightPassengerDb.get(flightId).size();
+//                }
+//            }
         }
         return count;
     }
