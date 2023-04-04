@@ -70,7 +70,9 @@ public class AirportRepository {
         double ans = Integer.MAX_VALUE;
         for (Flight flight : flightDb.values()) {
             if (flight.getFromCity() == fromCity && flight.getToCity() == toCity) {
-                ans = Math.min(ans, flight.getDuration());
+                if(flight.getDuration() < ans){
+                    ans = flight.getDuration();
+                }
             }
         }
         return ans;
