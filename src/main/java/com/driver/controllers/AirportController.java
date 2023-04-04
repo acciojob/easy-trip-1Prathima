@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping("airport")
 public class AirportController {
-    AirportService airportService = new AirportService();
+    public AirportService airportService = new AirportService();
 
     @PostMapping("/add_airport")
     public String addAirport(@RequestBody Airport airport){
