@@ -61,8 +61,8 @@ public class AirportRepository {
         if(airportDb.containsKey(airportName)){
             City city = airportDb.get(airportName).getCity();
             for(Flight flight : flightDb.values()){
-                if(flight.getFlightDate()== date){
-                    if(flight.getFromCity() == city || flight.getToCity() == city){
+                if(flight.getFlightDate().equals(date)){
+                    if(flight.getFromCity().equals(city) || flight.getToCity().equals(city)){
                         count = count + flightPassengerDb.get(flight.getFlightId()).size();
                     }
                 }
@@ -72,12 +72,9 @@ public class AirportRepository {
     }
 
     public int calculateFlightFare(Integer flightId) {
-        int ans = 0;
+        int ans = 3000;
         if(flightPassengerDb.containsKey(flightId)) {
             ans = 3000 + (flightPassengerDb.get(flightId).size() * 50);
-        }
-        else{
-            ans = 3000;
         }
         return ans;
     }
@@ -143,10 +140,11 @@ public class AirportRepository {
     public int calculateRevenueOfAFlight(Integer flightId){
         int bookedSeat = flightPassengerDb.get(flightId).size();
         int perSeatRevenue = 3000 * bookedSeat;
-        int totalRevenue = (bookedSeat * (bookedSeat+1) * 25) + (perSeatRevenue);
-        if(bookedSeat == 1){
-            return 3000;
-        }
+        int totalRevenue = bookedSeat * perSeatRevenue;
+//        int totalRevenue = (bookedSeat * (bookedSeat+1) * 25) + (perSeatRevenue);
+//        if(bookedSeat == 1){
+//            return 3000;
+//        }
         return totalRevenue;
     }
 
