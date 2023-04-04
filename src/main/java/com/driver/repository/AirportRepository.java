@@ -58,6 +58,23 @@ public class AirportRepository {
 
     public int getNumberOfPeopleOn(Date date, String airportName) {
         int count = 0;
+//        Airport airport = airportDb.get(airportName);
+//        if(Objects.isNull(airport)){
+//            return 0;
+//        }
+//        City city = airport.getCity();
+//        int count = 0;
+//
+//        for(Flight flight:flightDb.values()){
+//            if(date.equals(flight.getFlightDate()))
+//                if(flight.getToCity().equals(city)||flight.getFromCity().equals(city)){
+//
+//                    int flightId = flight.getFlightId();
+//                    count = count + flightToPassengerDb.get(flightId).size();
+//                }
+//        }
+
+
         if(airportDb.containsKey(airportName)) {
             Airport airport = airportDb.get(airportName);
             City city = airport.getCity();
@@ -150,9 +167,11 @@ public class AirportRepository {
 
     public int calculateRevenueOfAFlight(Integer flightId){
         int bookedSeat = flightPassengerDb.get(flightId).size();
-        int availableSeat = flightDb.get(flightId).getMaxCapacity() - bookedSeat;
-        int perSeatRevenue = (bookedSeat / availableSeat);
-        int totalRevenue = bookedSeat * (perSeatRevenue);
+        int perSeatRevenue = 3000 * bookedSeat;
+        int totalRevenue = (bookedSeat * (bookedSeat+1) * 25) + (perSeatRevenue);
+        if(bookedSeat == 1){
+            return 3000;
+        }
         return totalRevenue;
     }
 
