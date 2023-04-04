@@ -61,26 +61,13 @@ public class AirportRepository {
         if(airportDb.containsKey(airportName)){
             City city = airportDb.get(airportName).getCity();
             for(Flight flight : flightDb.values()){
-                if(flight.getFlightDate().equals(date)){
-                    if(flight.getFromCity().equals(city) || flight.getToCity().equals(city)){
+                if(flight.getFlightDate()== date){
+                    if(flight.getFromCity() == city || flight.getToCity() == city){
                         count = count + flightPassengerDb.get(flight.getFlightId()).size();
                     }
                 }
             }
         }
-//        Airport airport = airportDb.get(airportName);
-//        if(Objects.isNull(airport)){
-//            return 0;
-//        }
-//        City city = airport.getCity();
-//        for(Flight flight:flightDb.values()){
-//            if(date.equals(flight.getFlightDate()))
-//                if(flight.getToCity().equals(city)||flight.getFromCity().equals(city)){
-//
-//                    int flightId = flight.getFlightId();
-//                    count = count + flightPassengerDb.get(flightId).size();
-//                }
-//        }
         return count;
     }
 
