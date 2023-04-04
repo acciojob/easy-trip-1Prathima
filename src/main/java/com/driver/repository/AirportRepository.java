@@ -77,6 +77,9 @@ public class AirportRepository {
 
         if(airportDb.containsKey(airportName)) {
             Airport airport = airportDb.get(airportName);
+            if(airport == null){
+                return 0;
+            }
             City city = airport.getCity();
             for(Flight flight : flightDb.values()){
                 if(flight.getFlightDate() == date){
@@ -86,12 +89,6 @@ public class AirportRepository {
                     }
                 }
             }
-//            for (int flightId : flightPassengerDb.keySet()) {
-//                if (flightDb.get(flightId).getFlightDate() == date && (flightDb.get(flightId).getFromCity() == airportDb.get(airportName).getCity()
-//                        || flightDb.get(flightId).getToCity() == airportDb.get(airportName).getCity())) {
-//                    count += flightPassengerDb.get(flightId).size();
-//                }
-//            }
         }
         return count;
     }
