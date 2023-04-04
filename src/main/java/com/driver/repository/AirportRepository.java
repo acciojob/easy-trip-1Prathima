@@ -58,37 +58,18 @@ public class AirportRepository {
 
     public int getNumberOfPeopleOn(Date date, String airportName) {
         int count = 0;
-//        Airport airport = airportDb.get(airportName);
-//        if(Objects.isNull(airport)){
-//            return 0;
-//        }
-//        City city = airport.getCity();
-//        int count = 0;
-//
-//        for(Flight flight:flightDb.values()){
-//            if(date.equals(flight.getFlightDate()))
-//                if(flight.getToCity().equals(city)||flight.getFromCity().equals(city)){
-//
-//                    int flightId = flight.getFlightId();
-//                    count = count + flightToPassengerDb.get(flightId).size();
-//                }
-//        }
+        Airport airport = airportDb.get(airportName);
+        if(Objects.isNull(airport)){
+            return 0;
+        }
+        City city = airport.getCity();
+        for(Flight flight:flightDb.values()){
+            if(date.equals(flight.getFlightDate()))
+                if(flight.getToCity().equals(city)||flight.getFromCity().equals(city)){
 
-
-        if(airportDb.containsKey(airportName)) {
-            Airport airport = airportDb.get(airportName);
-            if(airport == null){
-                return 0;
-            }
-            City city = airport.getCity();
-            for(Flight flight : flightDb.values()){
-                if(flight.getFlightDate() == date){
-                    if(flight.getFromCity() == city || flight.getToCity() == city){
-                        int flightId = flight.getFlightId();
-                        count = count + flightPassengerDb.get(flightId).size();
-                    }
+                    int flightId = flight.getFlightId();
+                    count = count + flightPassengerDb.get(flightId).size();
                 }
-            }
         }
         return count;
     }
