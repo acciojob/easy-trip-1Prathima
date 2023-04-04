@@ -81,13 +81,16 @@ public class AirportRepository {
     }
 
     public String bookATicket(Integer flightId, Integer passengerId) {
-        if (flightPassengerDb.get(flightId).size() >= flightDb.get(flightId).getMaxCapacity()) {
-            return "FAILURE";
+        if(flightPassengerDb.containsKey(flightId)) {
+            if (flightPassengerDb.get(flightId).size() >= flightDb.get(flightId).getMaxCapacity()) {
+                return "FAILURE";
+            }
         }
         List<Integer> passengers = flightPassengerDb.get(flightId);
-        if (passengers.contains(passengerId)) {
+        if (passengers != null && passengers.contains(passengerId)) {
             return "FAILURE";
-        } else {
+        }
+        else {
             if(passengers == null){
                 passengers = new ArrayList<>();
             }
