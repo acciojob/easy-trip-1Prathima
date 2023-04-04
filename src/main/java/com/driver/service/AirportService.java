@@ -12,19 +12,10 @@ import java.util.Date;
 
 @Service
 public class AirportService {
-
     AirportRepository airportRepository = new AirportRepository();
 
     public void addAirport(Airport airport){
         airportRepository.addAirport(airport);
-    }
-
-    public void addFlight(Flight flight){
-        airportRepository.addFlight(flight);
-    }
-
-    public void addPassenger(Passenger passenger){
-        airportRepository.addPassenger(passenger);
     }
 
     public String getLargestAirportName(){
@@ -62,6 +53,10 @@ public class AirportService {
         return ans;
     }
 
+    public void addFlight(Flight flight){
+        airportRepository.addFlight(flight);
+    }
+
     public String getAirportNameFromFlightId(Integer flightId){
         String ans = airportRepository.getAirportNameFromFlightId(flightId);
         return ans;
@@ -70,5 +65,9 @@ public class AirportService {
     public int calculateRevenueOfAFlight(Integer flightId){
         int ans = airportRepository.calculateRevenueOfAFlight(flightId);
         return ans;
+    }
+
+    public void addPassenger(Passenger passenger){
+        airportRepository.addPassenger(passenger);
     }
 }

@@ -21,31 +21,6 @@ public class AirportRepository {
         airportDb.put(airport.getAirportName(), airport);
     }
 
-    public void addFlight(Flight flight) {
-        flightDb.put(flight.getFlightId(), flight);
-    }
-
-    public void addPassenger(Passenger passenger) {
-        passengerDb.put(passenger.getPassengerId(), passenger);
-    }
-
-    public String bookATicket(Integer flightId, Integer passengerId) {
-        if (flightPassengerDb.get(flightId).size() >= flightDb.get(flightId).getMaxCapacity()) {
-            return "FAILURE";
-        }
-        List<Integer> passengers = flightPassengerDb.get(flightId);
-        if (passengers.contains(passengerId)) {
-            return "FAILURE";
-        } else {
-            if(passengers == null){
-                passengers = new ArrayList<>();
-            }
-            passengers.add(passengerId);
-            flightPassengerDb.put(flightId, passengers);
-            return "SUCCESS";
-        }
-    }
-
     public String getLargestAirportName() {
         int max = 0;
         String ans = "";
@@ -105,6 +80,23 @@ public class AirportRepository {
         return ans;
     }
 
+    public String bookATicket(Integer flightId, Integer passengerId) {
+        if (flightPassengerDb.get(flightId).size() >= flightDb.get(flightId).getMaxCapacity()) {
+            return "FAILURE";
+        }
+        List<Integer> passengers = flightPassengerDb.get(flightId);
+        if (passengers.contains(passengerId)) {
+            return "FAILURE";
+        } else {
+            if(passengers == null){
+                passengers = new ArrayList<>();
+            }
+            passengers.add(passengerId);
+            flightPassengerDb.put(flightId, passengers);
+            return "SUCCESS";
+        }
+    }
+
     public String cancelATicket(Integer flightId, Integer passengerId) {
         if (flightPassengerDb.containsKey(flightId)) {
             List<Integer> passengers = flightPassengerDb.get(flightId);
@@ -126,6 +118,10 @@ public class AirportRepository {
         return count;
     }
 
+    public void addFlight(Flight flight) {
+        flightDb.put(flight.getFlightId(), flight);
+    }
+
     public String getAirportNameFromFlightId(Integer flightId){
         String ans = null;
         if(flightDb.containsKey(flightId)) {
@@ -145,5 +141,9 @@ public class AirportRepository {
         int perSeatRevenue = (bookedSeat / availableSeat);
         int totalRevenue = bookedSeat * (perSeatRevenue);
         return totalRevenue;
+    }
+
+    public void addPassenger(Passenger passenger) {
+        passengerDb.put(passenger.getPassengerId(), passenger);
     }
 }
