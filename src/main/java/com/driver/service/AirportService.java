@@ -1,15 +1,15 @@
-package com.driver.controllers;
+package com.driver.service;
 
 import com.driver.model.Airport;
 import com.driver.model.City;
 import com.driver.model.Flight;
 import com.driver.model.Passenger;
+import com.driver.repository.AirportRepository;
 import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-@Service
 public class AirportService {
     AirportRepository airportRepository = new AirportRepository();
 
@@ -70,3 +70,4 @@ public class AirportService {
         airportRepository.addPassenger(passenger);
     }
 }
+

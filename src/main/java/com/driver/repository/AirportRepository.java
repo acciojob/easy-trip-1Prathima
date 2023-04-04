@@ -1,4 +1,4 @@
-package com.driver.controllers;
+package com.driver.repository;
 
 import com.driver.model.Airport;
 import com.driver.model.City;
@@ -12,10 +12,10 @@ import java.util.*;
 @Repository
 public class AirportRepository {
 
-    HashMap<Integer, Passenger> passengerDb = new HashMap<>();
-    HashMap<String, Airport> airportDb = new HashMap<>();
-    HashMap<Integer, Flight> flightDb = new HashMap<>();
-    HashMap<Integer, List<Integer>> flightPassengerDb = new HashMap<>();
+    public HashMap<Integer, Passenger> passengerDb = new HashMap<>();
+    public HashMap<String, Airport> airportDb = new HashMap<>();
+    public HashMap<Integer, Flight> flightDb = new HashMap<>();
+    public HashMap<Integer, List<Integer>> flightPassengerDb = new HashMap<>();
 
     public void addAirport(Airport airport) {
         airportDb.put(airport.getAirportName(), airport);
@@ -147,3 +147,4 @@ public class AirportRepository {
         passengerDb.put(passenger.getPassengerId(), passenger);
     }
 }
+
