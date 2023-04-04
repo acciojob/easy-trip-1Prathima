@@ -141,10 +141,6 @@ public class AirportRepository {
         int bookedSeat = flightPassengerDb.get(flightId).size();
         int perSeatRevenue = 3000 * bookedSeat;
         int totalRevenue = bookedSeat * perSeatRevenue;
-//        int totalRevenue = (bookedSeat * (bookedSeat+1) * 25) + (perSeatRevenue);
-//        if(bookedSeat == 1){
-//            return 3000;
-//        }
         return totalRevenue;
     }
 
